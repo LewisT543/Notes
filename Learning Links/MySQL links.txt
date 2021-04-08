@@ -1,0 +1,2 @@
+MySQL and SQL datacamp tutorial:
+https://www.datacamp.com/community/tutorials/mysql-python#IMySQL
