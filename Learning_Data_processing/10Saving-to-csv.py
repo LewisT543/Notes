@@ -1,0 +1,61 @@
+                            #### SAVING DATA TO CSV ####
+
+    # SAVING DATA PART-1 #
+# As we mentioned before, saving data to a CSV file is done using the writer object provided by the csv module. 
+    # To create it, we need to use a function called writer, which takes the same set of arguments as the reader function.
+
+import csv
+
+with open('exported_contacts.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile, delimiter=',')
+    
+    writer.writerow(['Name', 'Phone'])
+    writer.writerow(['mother', '222-555-101'])
+    writer.writerow(['father', '222-555-102'])
+    writer.writerow(['wife', '222-555-103'])
+    writer.writerow(['mother-in-law', '222-555-104'])
+
+# output:
+# writes contacts to exported_contacts.csv
+
+# NOTE: The 'w' mode creates a file for us if it hasn't already been created. 
+# Next, we create a writer object that we use to add rows using the writerow method. The writerow method takes a list of 
+    # values as an argument, and then saves them as one line in a CSV file.
+
+
+    # SAVING DATA PART-2 #
+# Imagine a situation where you add a contact containing the separator used to separate the values in the CSV file.
+# By default, these values are quoted, but you can change this with the quotechar argument, which must be a single character.
+
+with open('exported_contacts.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+    # Writerow etc...
+    writer.writerow(['grandmother, grandfather', '222-555-105'])
+
+# The last argument called quoting, specifies what values should be quoted.
+# The default value QUOTE_MINIMAL means that only values with special characters such as separator or quotechar will be quoted. 
+# In our case, it's the value of "grandmother, grandfather".
+
+# Below are other constants that we can use as the value of the quoting argument:
+    # csv.QUOTE_ALL         – quotes all values
+    # csv.QUOTE_NONNUMERIC  – quotes only non-numeric values
+    # csv.QUOTE_NONE        – doesn't quote any values. It's not a good idea to set this value if you have special characters that 
+                                # require quoting, because this will raise an error
+
+# NOTE: The quotechar and quoting parameters can also be used in the reader function. See the documentation for more information.
+
+
+    # WRITING TO CSV PART-3 #
+# Do you remember how we read rows from the CSV file to OrderedDict objects? 
+# In the csv module, there is an analogous class called DictWriter with which we can map dictionaries to rows.
+# unlike the DictReader object, when creating the DictWriter object, we must define a header.
+
+with open('exported_contacts.csv', 'w', newline='') as csvfile:
+    fieldnames = ['Name', 'Phone']                             # <<< REQUIRED FOR csv.DictWriter
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+# To create the DictWriter object, we use a file object and a list containing column names.
+# Note that before saving the value, we first call the writeheader method, which adds the header to the first line of the file.
+# After that we add rows with values by passing dictionaries to the writerow method.
+
