@@ -1,2 +1,0 @@
-.loc, .iloc, .ix
-https://pandas.pydata.org/pandas-docs/version/0.15/indexing.html
